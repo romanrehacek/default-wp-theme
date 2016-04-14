@@ -1,9 +1,9 @@
-(function ($, root, undefined) {
+(function ($, root) {
 
 	'use strict'
-
+	
 	$( document ).ready(function() {
-
+	
 		//some code here
 
     });
