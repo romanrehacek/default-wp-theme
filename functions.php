@@ -28,12 +28,12 @@ function theme_defaults__remove_menus(){
 
 
 function theme_defaults__load_styles() {
-    wp_enqueue_style('main',                get_template_directory_uri() . '/css/main.css',       false, filemtime( get_stylesheet_directory() . '/css/main.css' ));
-    wp_enqueue_style('responsive',          get_template_directory_uri() . '/css/responsive.css', false, filemtime( get_stylesheet_directory() . '/css/responsive.css' ));
+    wp_enqueue_style('main.min',                get_template_directory_uri() . '/css/main.min.css',       false, filemtime( get_stylesheet_directory() . '/css/main.min.css' ));
+    wp_enqueue_style('responsive.min',          get_template_directory_uri() . '/css/responsive.min.css', false, filemtime( get_stylesheet_directory() . '/css/responsive.min.css' ));
 }
 
 function theme_defaults__load_scripts() {
-    wp_enqueue_script('main',                   get_template_directory_uri(). '/js/main.js',                    array('jquery'), filemtime( get_stylesheet_directory() . '/js/main.js' ), true);
+    wp_enqueue_script('main.min',                   get_template_directory_uri(). '/js/main.min.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/main.min.js' ), true);
 
     // load jquery in footer
     if( !is_admin()){
