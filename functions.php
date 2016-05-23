@@ -34,7 +34,11 @@ function theme_defaults__load_styles() {
 
 function theme_defaults__load_scripts() {
     wp_enqueue_script('main.min',                   get_template_directory_uri(). '/js/main.min.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/main.min.js' ), true);
-
+    
+    wp_localize_script( 'main.min', 'global_data', array( 
+    							'ajax_url' => admin_url( 'admin-ajax.php' ), 
+    							'theme_url' => get_template_directory_uri() ) );
+    
     // load jquery in footer
     if( !is_admin()){
         wp_deregister_script('jquery');
