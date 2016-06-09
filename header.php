@@ -15,3 +15,4 @@
         
     </head>
     <body <?php body_class(); ?>>
+        <?php include(get_template_directory().'/inc/header-external-scripts.php'); ?>
