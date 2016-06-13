@@ -23,17 +23,15 @@ add_filter( 'pings_open', 							'r_filter_comment_status', 20, 2 );
 
 add_filter( 'plugin_action_links', 					'r_plugin_actions_links', 10, 2 );
 
-if (!function_exists('r_check_comment_template')) :
-	function r_check_comment_template() {
-	    if( is_singular() ) {
-	        add_filter( 'comments_template', 'r_dummy_comments_template', 20 );
-	        // Remove comment-reply script for themes that include it indiscriminately
-	        wp_deregister_script( 'comment-reply' );
-	        // feed_links_extra inserts a comments RSS link
-	        remove_action( 'wp_head', 'feed_links_extra', 3 );
-	    }
-	}
-endif;
+function r_check_comment_template() {
+    if( is_singular() ) {
+        add_filter( 'comments_template', 'r_dummy_comments_template', 20 );
+        // Remove comment-reply script for themes that include it indiscriminately
+        wp_deregister_script( 'comment-reply' );
+        // feed_links_extra inserts a comments RSS link
+        remove_action( 'wp_head', 'feed_links_extra', 3 );
+    }
+}
 
 if (!function_exists('r_dummy_comments_template')) :
 	function r_dummy_comments_template() {
