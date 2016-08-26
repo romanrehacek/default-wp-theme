@@ -1,13 +1,14 @@
 <?php
 
 require_once 'inc/disable-comments.php';
+require_once 'inc/disable-embeds.php';
 require_once 'inc/theme-options.php';
 require_once 'inc/menus.php';
 require_once 'inc/custom_post_types.php';
 require_once 'inc/defaults.php';
 
 add_action( 'init',                     'r_theme_defaults__default' );
-//add_action( 'admin_menu',               'r_theme_defaults__remove_menus' );
+//add_action( 'admin_menu',             'r_theme_defaults__remove_menus' );
 add_action( 'wp_enqueue_scripts',       'r_theme_defaults__load_styles');
 add_action( 'wp_enqueue_scripts',       'r_theme_defaults__load_scripts' );
 add_action( 'after_setup_theme',        'r_add_custom_menus');
@@ -28,12 +29,13 @@ function r_theme_defaults__remove_menus(){
 
 
 function r_theme_defaults__load_styles() {
-    wp_enqueue_style('main.min',                get_template_directory_uri() . '/css/main.min.css',       false, filemtime( get_stylesheet_directory() . '/css/main.min.css' ));
-    wp_enqueue_style('responsive.min',          get_template_directory_uri() . '/css/responsive.min.css', false, filemtime( get_stylesheet_directory() . '/css/responsive.min.css' ));
+	wp_enqueue_style('',                get_template_directory_uri() . '/css/',       false, '');
+    wp_enqueue_style('main.min',		get_template_directory_uri() . '/css/main.min.css',       false, filemtime( get_stylesheet_directory() . '/css/main.min.css' ));
 }
 
 function r_theme_defaults__load_scripts() {
-    wp_enqueue_script('main.min',                   get_template_directory_uri(). '/js/main.min.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/main.min.js' ), true);
+	wp_enqueue_script('',				get_template_directory_uri(). '/js/',	array('jquery'), '', true);
+    wp_enqueue_script('main.min',		et_template_directory_uri(). '/js/main.min.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/main.min.js' ), true);
     
     wp_localize_script( 'main.min', 'global_data', array( 
     							'ajax_url' => admin_url( 'admin-ajax.php' ), 
