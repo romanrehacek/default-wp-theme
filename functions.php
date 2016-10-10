@@ -82,3 +82,19 @@ function r_add_widget_areas() {
     ));
     */
 }
+
+function vd($result, $var_dump = false, $die = false) {
+	echo '<pre>';
+	
+	if (!$var_dump) {
+		print_r($result);
+	} else {
+		var_dump($result);
+	}
+	
+	echo '</pre>';
+	
+	if ($die) {
+		die();
+	}
+}
