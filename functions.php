@@ -9,12 +9,13 @@ require_once 'inc/defaults.php';
 
 add_action( 'init',                     'r_theme_defaults__default' );
 //add_action( 'admin_menu',             'r_theme_defaults__remove_menus' );
-add_action( 'wp_enqueue_scripts',       'r_theme_defaults__load_styles');
-add_action( 'wp_enqueue_scripts',       'r_theme_defaults__load_scripts' );
+add_action( 'wp_enqueue_scripts',       'r_theme_defaults__load_styles_scripts',	30);
 add_action( 'after_setup_theme',        'r_add_custom_menus');
 add_action( 'widgets_init',             'r_add_widget_areas' );
 add_action( 'after_setup_theme',        'r_add_theme_support_title');
 
+// set CSS and JS files suffix
+$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
 /*
  * Functions
@@ -27,34 +28,41 @@ function r_theme_defaults__remove_menus(){
     remove_menu_page( 'tools.php' );    //Tools
 }
 
-$dev = true;	// set false in production
-if ($dev) {
-	$min = '';
-} else {
-	$min = '.min';
-}
+/**
+ * Enqueue scripts and styles.
+ *
+ * @since  1.0.0
+ */
+function r_theme_defaults__load_styles_scripts() {
+	global $suffix;
+	
+	/**
+	 * Styles
+	 */
+	if (file_exists( get_stylesheet_directory() . '/css/plugins.css' )) {
+		wp_enqueue_style('r-plugins',     get_stylesheet_directory_uri() . '/css/plugins.css',  			false, filemtime( get_stylesheet_directory() . '/css/plugins.css' ));
+	}
+    wp_enqueue_style('r-main',			get_stylesheet_directory_uri() . '/css/main' . $suffix . '.css',	false, filemtime( get_stylesheet_directory() . '/css/main' . $suffix . '.css' ));
 
-function r_theme_defaults__load_styles() {
-	wp_enqueue_style('plugins.min',     get_template_directory_uri() . '/css/plugins'.$min.'.css',    false, filemtime( get_stylesheet_directory() . '/css/plugins'.$min.'.css' ));
-    wp_enqueue_style('main.min',		get_template_directory_uri() . '/css/main'.$min.'.css',       false, filemtime( get_stylesheet_directory() . '/css/main'.$min.'.css' ));
-}
 
-function r_theme_defaults__load_scripts() {
-	wp_enqueue_script('plugins.min',	get_template_directory_uri(). '/js/plugins'.$min.'.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/plugins'.$min.'.js' ), true);
-    wp_enqueue_script('main.min',		get_template_directory_uri(). '/js/main'.$min.'.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/main'.$min.'.js' ), true);
+	/**
+	 * Scripts
+	 */
+	if (file_exists(( get_stylesheet_directory() . '/js/plugins.js' ))) {
+		wp_enqueue_script('r-plugins',	get_stylesheet_directory_uri(). '/js/plugins.js',				array('jquery'), filemtime( get_stylesheet_directory() . '/js/plugins.js' ), true);
+	}
+    wp_enqueue_script('r-main',			get_stylesheet_directory_uri(). '/js/main' . $suffix . '.js',	array('jquery'), filemtime( get_stylesheet_directory() . '/js/main' . $suffix . '.js' ), true);
     
-    wp_localize_script( 'main.min', 'global_data', array( 
-    							'ajax_url' => admin_url( 'admin-ajax.php' ), 
-    							'theme_url' => get_template_directory_uri() ) );
+    wp_localize_script( 'r-main', 	'global_data', array( 
+    								'ajax_url' 	=> admin_url( 'admin-ajax.php' ), 
+    								'theme_url' => get_stylesheet_directory_uri() ) );
     
     // load jquery in footer
     if( !is_admin()){
         wp_deregister_script('jquery');
-        //wp_register_script('jquery', ("//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"), false, '1.11.2', true);
         wp_register_script( 'jquery', includes_url( '/js/jquery/jquery.js' ), false, NULL, true );
         wp_enqueue_script('jquery');
     }
-
 }
 
 function r_add_custom_menus() {
