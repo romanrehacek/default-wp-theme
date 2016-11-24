@@ -1,6 +1,7 @@
+/* global jQuery */
 (function ($, root) {
 
-	'use strict'
+	'use strict';
 	
 	$( document ).ready(function() {
 	
