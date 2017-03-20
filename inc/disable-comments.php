@@ -85,7 +85,7 @@ endif;
 
 if (!function_exists('r_hide_dashboard_bits')) :
 	function r_hide_dashboard_bits(){
-	    if( 'dashboard' == get_current_screen()->id )
+	    if( isset( get_current_screen()->id ) && 'dashboard' == get_current_screen()->id )
 	        add_action( 'admin_print_footer_scripts', 'r_dashboard_js' );
 	}
 endif;
