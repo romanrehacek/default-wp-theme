@@ -1,12 +1,15 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 add_action( 'init',                     'r_disable_emojis' );
-add_action( 'wp_enqueue_scripts',       'r_remove_wp_open_sans');
-add_action( 'admin_enqueue_scripts',    'r_remove_wp_open_sans');
+add_action( 'wp_enqueue_scripts',       'r_remove_wp_open_sans' );
+add_action( 'admin_enqueue_scripts',    'r_remove_wp_open_sans' );
 
-add_filter( 'show_admin_bar',           '__return_false');
+add_filter( 'show_admin_bar',           '__return_false' );
 add_filter( 'wp_title', 				'r_baw_hack_wp_title_for_home' );
-add_filter('nav_menu_css_class' , 		'r_special_nav_class' , 10 , 2);
+add_filter( 'nav_menu_css_class' , 		'r_special_nav_class' , 10 , 2 );
 
 remove_action( 'wp_head', 'rsd_link' ); // Display the link to the Really Simple Discovery service endpoint, EditURI link
 remove_action( 'wp_head', 'wlwmanifest_link' ); // Display the link to the Windows Live Writer manifest file.
