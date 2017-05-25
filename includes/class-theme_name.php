@@ -36,17 +36,17 @@ if ( ! class_exists( 'Theme_name' ) ) :
 			 * Load styles
 			 ****************/
 			 
-			if ( file_exists( get_stylesheet_directory() . '/assets/css/plugins.min.css' ) ) {
+			if ( file_exists( get_stylesheet_directory() . '/assets/css/plugins' . $this->suffix . '.css' ) ) {
 				wp_enqueue_style(	'theme_name-plugins',
-									get_stylesheet_directory_uri() . '/assets/css/plugins.min.css',
+									get_stylesheet_directory_uri() . '/assets/css/plugins' . $this->suffix . '.css',
 									false,
-									filemtime( get_stylesheet_directory() . '/assets/css/plugins.min.css' )
+									filemtime( get_stylesheet_directory() . '/assets/css/plugins' . $this->suffix . '.css' )
 								);
 			}
 			wp_enqueue_style(	'theme_name-style', 
-								get_stylesheet_directory_uri() . '/assets/css/main.css',
+								get_stylesheet_directory_uri() . '/assets/css/main' . $this->suffix . '.css',
 								false,
-								filemtime( get_stylesheet_directory() . '/assets/css/main.css' )
+								filemtime( get_stylesheet_directory() . '/assets/css/main' . $this->suffix . '.css' )
 							);
 			
 			/****************
