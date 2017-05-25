@@ -31,7 +31,7 @@ function getPostViews( $postID ){
 }
 
 function setPostViews( $postID ) {
-	session_start();
+	
 	$count_key = 'post_views_count';
 	$count = get_post_meta( $postID, $count_key, true );
 	
@@ -40,11 +40,8 @@ function setPostViews( $postID ) {
 		delete_post_meta( $postID, $count_key );
 		add_post_meta( $postID, $count_key, '0' );
 	} else {
-		if( !isset( $_SESSION['post_views_count-' . $postID] ) ) {
-			$_SESSION['post_views_count-' . $postID]="si";
-			$count++;
-			update_post_meta( $postID, $count_key, $count );
-		}
+		$count++;
+		update_post_meta( $postID, $count_key, $count );
 	}
 }
 
