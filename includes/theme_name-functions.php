@@ -56,3 +56,13 @@ function custom_excerpt( $text, $count = 150 ) {
     $words_count = explode( ' ', $temp );
     return wp_trim_words( $temp, count( $words_count ) - 1 );
 }
+
+function include_external_script( $filename = '' ) {
+	if ( empty( $filename ) ) {
+		return false;
+	}
+	
+	if ( file_exists( get_template_directory() . '/includes/external/' . $filename . '.php' ) ) {
+		include ( get_template_directory() . '/includes/external/' . $filename . '.php' );
+	}
+}
